@@ -1,9 +1,9 @@
-name: Update GitHub Languages Card
+name: Update Languages Card
 
 on:
-  workflow_dispatch:  # اجرای دستی
+  workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"  # هر ۶ ساعت یکبار
+    - cron: "0 */6 * * *"
 
 permissions:
   contents: write
@@ -11,116 +11,24 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-      # مرحله ۱: Clone کردن مخزن LangCard
-      - name: Checkout LangCard repo
+      - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          repository: VIDAKHOSHPEY22/github-languages-card
-          token: ${{ secrets.PROFILE_REPO_TOKEN }}
-          path: langcard-repo
 
-      # مرحله ۲: Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "npm"
-          cache-dependency-path: langcard-repo/package-lock.json
-
-      # مرحله ۳: نصب وابستگی‌ها
-      - name: Install dependencies
-        working-directory: langcard-repo
-        run: npm ci
-
-      # مرحله ۴: اجرای سرور و گرفتن SVG (اختیاری)
-      - name: Generate Languages Card SVG
-        working-directory: langcard-repo
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate card using API
         run: |
-          # اگر اسکریپت خاصی دارید
-          # npm run generate
-          
-          # یا با curl مستقیم از API بگیرید
           curl -o public/languages-card.svg \
             "https://github-languages-card.vercel.app/api/top-languages?username=VIDAKHOSHPEY22&theme=pink"
 
-      # مرحله ۵: Commit و Push در مخزن LangCard (اختیاری)
-      - name: Commit SVG in LangCard repo
-        working-directory: langcard-repo
-        shell: bash
+      - name: Commit & Push if changed
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.github.com"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           
           git add public/languages-card.svg
           
           if git diff --cached --quiet; then
-            echo "No changes in LangCard SVG"
-            exit 0
-          fi
-          
-          git commit -m "chore: auto-update languages card"
-          git push
-
-      # مرحله ۶: Clone کردن مخزن پروفایل
-      - name: Checkout Profile README repo
-        uses: actions/checkout@v4
-        with:
-          repository: VIDAKHOSHPEY22/VIDAKHOSHPEY22
-          token: ${{ secrets.PROFILE_REPO_TOKEN }}
-          path: profile-readme
-
-      # مرحله ۷: بروزرسانی README پروفایل
-      - name: Update card URL in profile README
-        working-directory: profile-readme
-        shell: bash
-        env:
-          USERNAME: VIDAKHOSHPEY22
-          TS: ${{ github.run_id }}
-        run: |
-          set -euo pipefail
-          
-          FILE="README.md"
-          if [ ! -f "$FILE" ]; then
-            echo "README.md not found in profile repo"
-            exit 1
-          fi
-          
-          # آدرس کارت شما
-          BASE="https://github-languages-card.vercel.app/api/top-languages?username=${USERNAME}&theme=pink"
-          
-          # بروزرسانی یا اضافه کردن کارت در README
-          if grep -q "$BASE" "$FILE"; then
-            # اگر وجود دارد، cache-buster را بروز کن
-            sed -i "s|$BASE\?v=[0-9]*|$BASE?v=$TS|g" "$FILE"
-            echo "Updated card URL with cache buster v=$TS"
-          else
-            # اگر وجود ندارد، در ابتدای فایل اضافه کن
-            echo "![GitHub Languages Card]($BASE?v=$TS)" > temp
-            echo "" >> temp
-            cat "$FILE" >> temp
-            mv temp "$FILE"
-            echo "Added card to README"
-          fi
-          
-          echo "---- README.md (first 30 lines) ----"
-          head -30 README.md
-
-      # مرحله ۸: Commit و Push تغییرات در پروفایل
-      - name: Commit & push profile README changes
-        working-directory: profile-readme
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.github.com"
-          
-          git add README.md
-          
-          if git diff --cached --quiet; then
-            echo "No changes in profile README"
+            echo "No changes"
             exit 0
           fi
           
