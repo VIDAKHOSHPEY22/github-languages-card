@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Generate beautiful SVG cards showing your GitHub top programming languages">
+    <title>LangCard | Professional GitHub Language Stats</title>
+    
+    <!-- Favicon - Simple Emoji Approach -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='url(%23grad)'/%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%233b82f6'/%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3E%3C/text%3E%3C/svg%3E">
+    
+    <!-- Fallback for older browsers -->
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABBSURBVFhH7dIxCgAgDAPAzXv/y9UFp0CxOvgTh5Qr2QghhBBCCH+JXoD78QK8Tp4FPh38Wroh/xcBzwo+/gUI/3EB+PsQjHJhqFoAAAAASUVORK5CYII=">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+
+        /* Animated Background with Parallax */
+        .bg-orb {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: #0a0a0a;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: floatOrb 25s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: #3b82f6;
+            top: -200px;
+            left: -200px;
+            opacity: 0.3;
+        }
+
+        .orb-2 {
+            width: 600px;
+            height: 600px;
+            background: #8b5cf6;
+            bottom: -300px;
+            right: -200px;
+            opacity: 0.3;
+            animation-delay: -8s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: #ec4899;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.15;
+            animation-delay: -15s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -40px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        /* Navigation with Scroll Effect */
+        .nav {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(16px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .nav-scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: rotateLogo 12s linear infinite;
+        }
+
+        @keyframes rotateLogo {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-icon svg {
+            animation: counterRotate 12s linear infinite;
+        }
+
+        @keyframes counterRotate {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        .logo-gradient {
+            background: linear-gradient(135deg, #ffffff, #a1a1aa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #a1a1aa;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+        }
+
+        .star-github {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .star-github:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        /* Hero with Parallax */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 40px;
+            font-size: 0.75rem;
+            color: #60a5fa;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff, #a1a1aa, #3b82f6);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientMove 3s ease infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: #a1a1aa;
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Scroll Reveal Animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Main Card */
+        .card {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 32px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Demo Panel */
+        .demo {
+            padding: 2.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: flex-end;
+        }
+
+        .inputs {
+            display: flex;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .field {
+            flex: 1;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #71717a;
+            margin-bottom: 0.5rem;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #ffffff;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .field input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Modern Theme Selector */
+        .theme-selector-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .theme-trigger {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #ffffff;
+            font-size: 0.875rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .theme-trigger:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .selected-theme-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .selected-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff6b9d;
+            transition: all 0.3s;
+        }
+
+        .dropdown-icon {
+            transition: transform 0.3s;
+        }
+
+        .theme-trigger.active .dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Theme Dropdown Modal */
+        .theme-dropdown {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .theme-dropdown.active {
+            display: flex;
+        }
+
+        .theme-dropdown-content {
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .theme-dropdown-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .theme-dropdown-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .close-dropdown {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .close-dropdown:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        .theme-options {
+            padding: 1rem;
+            max-height: 60vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-option:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(4px);
+        }
+
+        .theme-option.active {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .theme-option-color {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .theme-option-info {
+            flex: 1;
+        }
+
+        .theme-option-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.125rem;
+        }
+
+        .theme-option-value {
+            font-size: 0.7rem;
+            color: #a1a1aa;
+        }
+
+        .check-icon {
+            width: 20px;
+            height: 20px;
+            color: #3b82f6;
+            flex-shrink: 0;
+        }
+
+        .btn-generate {
+            padding: 0.875rem 2rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.875rem;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-generate::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .btn-generate:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Preview */
+        .preview {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .preview:hover {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .preview-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #71717a;
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-svg {
+            max-width: 100%;
+            border-radius: 16px;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .preview-svg:hover {
+            transform: scale(1.02);
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #000000;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .code-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #71717a;
+        }
+
+        .btn-copy {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            color: #ffffff;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .code {
+            font-family: "Fira Code", monospace;
+            font-size: 0.8125rem;
+            color: #10b981;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1rem;
+            border-radius: 16px;
+            overflow-x: auto;
+            word-break: break-all;
+            transition: all 0.3s;
+        }
+
+        .code:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        /* Features Grid with Stagger Animation */
+        .features {
+            padding: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.4s;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-6px);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .feature:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .feature-desc {
+            font-size: 0.875rem;
+            color: #a1a1aa;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(10, 10, 10, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
+            animation: slideLine 3s infinite;
+        }
+
+        @keyframes slideLine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.8125rem;
+        }
+
+        .footer-link:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+            display: inline-block;
+        }
+
+        .footer-credit {
+            color: #71717a;
+            font-size: 0.75rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-credit a {
+            color: #60a5fa;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-credit a:hover {
+            color: #93c5fd;
+            text-decoration: underline;
+        }
+
+        /* Floating Animation for Elements */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 2rem 1rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .controls { flex-direction: column; align-items: stretch; }
+            .inputs { flex-direction: column; }
+            .btn-generate { justify-content: center; }
+            .demo, .features { padding: 1.5rem; }
+            .nav-container { padding: 1rem; }
+            .nav-links { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-orb">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <span class="logo-gradient">Lang</span><span style="color: #3b82f6;">Card</span>
+            </div>
+            <div class="nav-links">
+                <a href="#demo" class="nav-link">Demo</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="/api/docs" class="nav-link">API</a>
+                <a href="https://github.com/VIDAKHOSHPEY22/github-languages-card" target="_blank" class="star-github">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.21.68-.48 0-.24-.01-.87-.01-1.71-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48C19.13 20.17 22 16.42 22 12c0-5.52-4.48-10-10-10z"/>
+                    </svg>
+                    Star
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <div class="hero-badge">⚡ GitHub Integration</div>
+            <h1>Language Cards<br>for Developers</h1>
+            <p>Beautiful, real-time SVG cards showcasing your top programming languages</p>
+        </div>
+
+        <div class="card scroll-reveal" id="demo">
+            <div class="demo">
+                <div class="controls">
+                    <div class="inputs">
+                        <div class="field">
+                            <label>GitHub Username</label>
+                            <input type="text" id="username" placeholder="octocat" value="VIDAKHOSHPEY22">
+                        </div>
+                        <div class="theme-selector-wrapper">
+                            <label>Theme</label>
+                            <div class="theme-trigger" id="themeTrigger">
+                                <div class="selected-theme-info">
+                                    <div class="selected-color" id="selectedColor"></div>
+                                    <span id="selectedThemeName">Pink</span>
+                                </div>
+                                <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-generate" id="generateBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                        Generate Card
+                    </button>
+                </div>
+                
+                <div class="preview">
+                    <div class="preview-title">Live Preview</div>
+                    <object id="cardObject" type="image/svg+xml" data="/api/top-languages?username=VIDAKHOSHPEY22&theme=pink" class="preview-svg" style="width:100%; min-height:280px;">
+                        Loading...
+                    </object>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-label">📋 Markdown Code</span>
+                    <button class="btn-copy" id="copyBtn">Copy</button>
+                </div>
+                <div class="code" id="markdownCode"></div>
+            </div>
+        </div>
+
+        <div class="features" id="features">
+            <div class="section-title">
+                <span>✨</span>
+                <span>Features</span>
+            </div>
+            <div class="features-grid">
+                <div class="feature" data-delay="0">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-title">Top Languages</div>
+                    <div class="feature-desc">Your most used programming languages with percentages</div>
+                </div>
+                <div class="feature" data-delay="0.1">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <div class="feature-title">GitHub Stats</div>
+                    <div class="feature-desc">Repositories, followers, stars and forks</div>
+                </div>
+                <div class="feature" data-delay="0.2">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 2a10 10 0 1 0 10 10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <div class="feature-title">18+ Themes</div>
+                    <div class="feature-desc">From dark mode to neon, pick your perfect style</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Dropdown Modal -->
+    <div class="theme-dropdown" id="themeDropdown">
+        <div class="theme-dropdown-content">
+            <div class="theme-dropdown-header">
+                <h3>Choose a Theme</h3>
+                <button class="close-dropdown" id="closeDropdown">✕</button>
+            </div>
+            <div class="theme-options" id="themeOptions"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://github.com/VIDAKHOSHPEY22/github-languages-card" target="_blank" class="footer-link">📦 GitHub</a>
+                <a href="/api/docs" class="footer-link">📚 API Docs</a>
+                <a href="/health" class="footer-link">💚 Status</a>
+            </div>
+            <div class="footer-credit">
+                Created with ❤️ by <a href="https://github.com/VIDAKHOSHPEY22" target="_blank">VIDAKHOSHPEY22</a> • MIT License            </div>
+        </div>
+    </footer>
+
+    <script>
+        const baseUrl = window.location.origin;
+        let currentTheme = 'pink';
+        let currentThemeName = 'Pink';
+        
+        const themesData = [
+            { name: "Pink", value: "pink", color: "#ff6b9d", color2: "#f43f5e", gradient: "linear-gradient(135deg, #ff6b9d, #f43f5e)" },
+            { name: "Dark", value: "dark", color: "#1a1a2e", color2: "#16213e", gradient: "linear-gradient(135deg, #1a1a2e, #16213e)" },
+            { name: "Mint", value: "mint", color: "#10b981", color2: "#059669", gradient: "linear-gradient(135deg, #10b981, #059669)" },
+            { name: "Purple", value: "purple", color: "#9333ea", color2: "#7e22ce", gradient: "linear-gradient(135deg, #9333ea, #7e22ce)" },
+            { name: "Ocean", value: "ocean", color: "#0ea5e9", color2: "#0284c7", gradient: "linear-gradient(135deg, #0ea5e9, #0284c7)" },
+            { name: "Sunset", value: "sunset", color: "#f59e0b", color2: "#ea580c", gradient: "linear-gradient(135deg, #f59e0b, #ea580c)" },
+            { name: "Graphite", value: "graphite", color: "#374151", color2: "#1f2937", gradient: "linear-gradient(135deg, #374151, #1f2937)" },
+            { name: "Coffee", value: "coffee", color: "#c47b4a", color2: "#9c5a2c", gradient: "linear-gradient(135deg, #c47b4a, #9c5a2c)" },
+            { name: "Lavender", value: "lavender", color: "#a855f7", color2: "#8b5cf6", gradient: "linear-gradient(135deg, #a855f7, #8b5cf6)" },
+            { name: "Peach", value: "peach", color: "#fb923c", color2: "#f97316", gradient: "linear-gradient(135deg, #fb923c, #f97316)" },
+            { name: "Neon", value: "neon", color: "#00e5ff", color2: "#00b4d8", gradient: "linear-gradient(135deg, #00e5ff, #00b4d8)" },
+            { name: "Strawberry", value: "strawberry", color: "#f43f5e", color2: "#e11d48", gradient: "linear-gradient(135deg, #f43f5e, #e11d48)" },
+            { name: "Dark Neon", value: "darkNeon", color: "#00ff88", color2: "#00d4ff", gradient: "linear-gradient(135deg, #00ff88, #00d4ff)" },
+            { name: "Fire", value: "fire", color: "#ff3d00", color2: "#ff6b00", gradient: "linear-gradient(135deg, #ff3d00, #ff6b00)" },
+            { name: "Snow", value: "snow", color: "#e2e8f0", color2: "#cbd5e1", gradient: "linear-gradient(135deg, #e2e8f0, #cbd5e1)" },
+            { name: "Hacker", value: "hacker", color: "#00ff41", color2: "#00cc33", gradient: "linear-gradient(135deg, #00ff41, #00cc33)" },
+            { name: "White", value: "white", color: "#ffffff", color2: "#f1f5f9", gradient: "linear-gradient(135deg, #ffffff, #f1f5f9)" },
+            { name: "Golden", value: "golden", color: "#ffd700", color2: "#fbbf24", gradient: "linear-gradient(135deg, #ffd700, #fbbf24)" }
+        ];
+        
+        // Scroll Reveal Animation
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+            return rect.top <= windowHeight - 100;
+        }
+
+        function handleScrollReveal() {
+            // Reveal scroll elements
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            revealElements.forEach(el => {
+                if (isElementInViewport(el) && !el.classList.contains('revealed')) {
+                    el.classList.add('revealed');
+                }
+            });
+
+            // Reveal features with delay
+            const features = document.querySelectorAll('.feature');
+            features.forEach((feature, index) => {
+                if (isElementInViewport(feature) && !feature.classList.contains('revealed')) {
+                    setTimeout(() => {
+                        feature.classList.add('revealed');
+                    }, index * 100);
+                }
+            });
+
+            // Navbar scroll effect
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        function renderThemeOptions() {
+            const container = document.getElementById("themeOptions");
+            if (!container) return;
+            
+            let html = "";
+            for (let i = 0; i < themesData.length; i++) {
+                const theme = themesData[i];
+                const isActive = currentTheme === theme.value;
+                html += `
+                    <div class="theme-option ${isActive ? 'active' : ''}" onclick="selectTheme('${theme.value}', '${theme.name}', '${theme.color}')">
+                        <div class="theme-option-color" style="background: ${theme.gradient}"></div>
+                        <div class="theme-option-info">
+                            <div class="theme-option-name">${theme.name}</div>
+                            <div class="theme-option-value">${theme.value}</div>
+                        </div>
+                        ${isActive ? '<svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>' : ''}
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+        
+        function selectTheme(themeValue, themeName, themeColor) {
+            currentTheme = themeValue;
+            currentThemeName = themeName;
+            
+            document.getElementById("selectedThemeName").textContent = themeName;
+            document.getElementById("selectedColor").style.background = themeColor;
+            
+            document.getElementById("themeDropdown").classList.remove("active");
+            document.getElementById("themeTrigger").classList.remove("active");
+            
+            generateCard();
+        }
+        
+        function generateCard() {
+            const username = document.getElementById("username").value.trim();
+            if (!username) return;
+            
+            const url = baseUrl + "/api/top-languages?username=" + encodeURIComponent(username) + "&theme=" + currentTheme;
+            
+            const obj = document.getElementById("cardObject");
+            if (obj) obj.data = url;
+            
+            const markdown = "![GitHub Languages](" + url + ")";
+            document.getElementById("markdownCode").textContent = markdown;
+        }
+        
+        document.getElementById("themeTrigger").addEventListener("click", function() {
+            const dropdown = document.getElementById("themeDropdown");
+            dropdown.classList.add("active");
+            this.classList.add("active");
+            renderThemeOptions();
+        });
+        
+        document.getElementById("closeDropdown").addEventListener("click", function() {
+            document.getElementById("themeDropdown").classList.remove("active");
+            document.getElementById("themeTrigger").classList.remove("active");
+        });
+        
+        document.getElementById("themeDropdown").addEventListener("click", function(e) {
+            if (e.target === this) {
+                this.classList.remove("active");
+                document.getElementById("themeTrigger").classList.remove("active");
+            }
+        });
+        
+        document.getElementById("generateBtn").addEventListener("click", generateCard);
+        document.getElementById("username").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") generateCard();
+        });
+        
+        document.getElementById("copyBtn").addEventListener("click", function() {
+            const code = document.getElementById("markdownCode").textContent;
+            navigator.clipboard.writeText(code).then(function() {
+                const btn = document.getElementById("copyBtn");
+                btn.textContent = "✓ Copied!";
+                setTimeout(function() { btn.textContent = "Copy"; }, 2000);
+            });
+        });
+        
+        // Initialize
+        document.getElementById("selectedColor").style.background = "#ff6b9d";
+        generateCard();
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScrollReveal);
+        window.addEventListener('load', handleScrollReveal);
+        
+        // Initial check
+        setTimeout(handleScrollReveal, 100);
+    </script>
+</body>
+</html>

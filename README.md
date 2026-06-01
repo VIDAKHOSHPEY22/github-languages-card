@@ -1,0 +1,339 @@
+<div align="center">
+  
+  <img src="public/images/dark-neon.png" alt="LangCard Banner" width="100%">
+  
+  # 🎨 GitHub Languages Card
+  
+  [![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](https://github.com/VIDAKHOSHPEY22/github-languages-card)
+  [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENCE)
+  [![Node.js](https://img.shields.io/badge/Node.js-18.x-green.svg)](https://nodejs.org/)
+  [![Express](https://img.shields.io/badge/Express-4.x-blue.svg)](https://expressjs.com/)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+  [![GitHub stars](https://img.shields.io/github/stars/VIDAKHOSHPEY22/github-languages-card)](https://github.com/VIDAKHOSHPEY22/github-languages-card/stargazers)
+  
+  > Generate beautiful, real-time SVG cards showcasing your GitHub top programming languages
+  
+  [Live Demo](https://github-languages-card.onrender.com) • [API Docs](#api-documentation) • [Report Bug](https://github.com/VIDAKHOSHPEY22/github-languages-card/issues) • [Request Feature](https://github.com/VIDAKHOSHPEY22/github-languages-card/issues)
+
+</div>
+
+---
+
+## ✨ Demo
+
+<div align="center">
+  <img src="public/images/demo.gif" alt="Demo Animation" width="800">
+  <br>
+  <em>Interactive demo showing real-time theme switching and card generation</em>
+</div>
+
+## 🚀 Quick Start
+
+Copy and paste this into your GitHub README.md:
+
+```markdown
+![GitHub Languages](https://your-domain.com/api/top-languages?username=YOUR_USERNAME&theme=pink)
+```
+
+### Example Result
+
+<div align="center">
+  <img src="public/images/pink.png" alt="Pink Theme Example" width="420">
+  <br>
+  <em>Example card with Pink theme</em>
+</div>
+
+## 🎨 Themes Gallery
+
+Choose from **18+ professionally designed themes** to match your style. Here are our **most beautiful themes**:
+
+<div align="center">
+  
+| Theme | Preview | Theme | Preview |
+|-------|---------|-------|---------|
+| **Pink** ⭐ | <img src="public/images/pink.png" width="380"> | **Dark Neon** 💚 | <img src="public/images/dark-neon.png" width="380"> |
+| **Neon** 💙 | <img src="public/images/neon.png" width="380"> | **Hacker** 💚 | <img src="public/images/hacker.png" width="380"> |
+| **Purple** 💜 | <img src="public/images/purple.png" width="380"> | **Coffee** 🤎 | <img src="public/images/coffee.png" width="380"> |
+| **Golden** ⭐ | <img src="public/images/golden.png" width="380"> | **Ocean** 🌊 | <img src="public/images/ocean.png" width="380"> |
+| **Sunset** 🌅 | <img src="public/images/sunset.png" width="380"> | **Fire** 🔥 | <img src="public/images/fire.png" width="380"> |
+| **Mint** 🌿 | <img src="public/images/mint.png" width="380"> | **Strawberry** 🍓 | <img src="public/images/strawberry.png" width="380"> |
+| **Lavender** 🌸 | <img src="public/images/lavender.png" width="380"> | **Peach** 🍑 | <img src="public/images/peach.png" width="380"> |
+| **Dark** 🌙 | <img src="public/images/dark.png" width="380"> | **Graphite** ⚫ | <img src="public/images/graphite.png" width="380"> |
+| **Snow** ❄️ | <img src="public/images/snow.png" width="380"> | **White** 🤍 | <img src="public/images/white.png" width="380"> |
+
+</div>
+
+### 🌟 Top Picks (Most Popular)
+
+<div align="center">
+  
+| Rank | Theme | Why It's Special |
+|------|-------|------------------|
+| 1 🥇 | **Pink** | Sweet, modern, and eye-catching gradient |
+| 2 🥈 | **Dark Neon** | Cyberpunk vibes with glowing effects |
+| 3 🥉 | **Neon** | Bright, energetic, and futuristic |
+| 4 | **Hacker** | Classic matrix-style green on black |
+| 5 | **Coffee** | Warm, cozy, and professional |
+| 6 | **Purple** | Royal and elegant deep purple tones |
+| 7 | **Golden** | Premium, luxurious golden gradient |
+| 8 | **Ocean** | Calm, professional blue tones |
+
+</div>
+
+
+## 📊 Features
+
+<div align="center">
+  
+| Feature | Description |
+|---------|-------------|
+| 🎨 **18+ Themes** | Professionally designed color schemes |
+| 📈 **Top Languages** | Shows your most used programming languages with percentages |
+| 👥 **GitHub Stats** | Displays repositories, followers, stars, and forks |
+| 🖼️ **Avatar Support** | Shows your GitHub profile picture |
+| 📱 **Responsive** | Works perfectly on all devices |
+| ⚡ **Real-time** | Live preview with instant theme switching |
+| 🔒 **Privacy Focused** | No data storage, direct API calls |
+| 🚀 **Fast Loading** | Optimized SVG generation with caching |
+
+</div>
+
+## 🛠️ API Documentation
+
+### Endpoint
+
+```
+GET /api/top-languages
+```
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `username` | string | ✅ Yes | - | GitHub username |
+| `theme` | string | ❌ No | `pink` | Theme name (see themes list below) |
+
+### Example Request
+
+```bash
+curl "https://your-domain.com/api/top-languages?username=octocat&theme=ocean"
+```
+
+### Available Themes
+
+```
+pink, dark, mint, purple, ocean, sunset, graphite, coffee, 
+lavender, peach, neon, strawberry, darkNeon, fire, snow, 
+hacker, white, golden
+```
+
+### Response Format
+
+The API returns an SVG image that can be embedded directly in markdown:
+
+```markdown
+![GitHub Languages](https://your-domain.com/api/top-languages?username=VIDAKHOSHPEY22&theme=pink)
+```
+
+## 💻 Self-Hosting
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+- Git
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/VIDAKHOSHPEY22/github-languages-card.git
+cd github-languages-card
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Configure environment**
+```bash
+cp .env.example .env
+# Edit .env with your GitHub token (optional but recommended)
+```
+
+4. **Start the server**
+```bash
+node server.js
+```
+
+5. **Open your browser**
+```
+http://localhost:3000
+```
+
+### Docker Deployment
+
+Create a `Dockerfile`:
+
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+Build and run:
+
+```bash
+docker build -t langcard .
+docker run -p 3000:3000 langcard
+```
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PORT` | Server port | `3000` |
+| `GITHUB_TOKEN` | GitHub API token (higher rate limit) | - |
+| `NODE_ENV` | Environment | `development` |
+| `RENDER_EXTERNAL_URL` | External URL for production | - |
+
+## 🎯 Use Cases
+
+- **GitHub Profile README** - Showcase your coding skills
+- **Developer Portfolio** - Display your tech stack
+- **Team Dashboard** - Monitor team language usage
+- **Coding Blog** - Add interactive stats to articles
+- **CV/Resume** - Showcase your programming language proficiency
+
+## 📁 Project Structure
+
+```
+github-languages-card/
+├── server.js              # Main Express server
+├── public/                # Static files
+│   ├── index.html         # Landing page
+│   └── images/            # Documentation images
+├── utils/                 # Utility functions
+│   ├── github.js          # GitHub API integration
+│   ├── svgBuilder.js      # SVG card builder
+│   └── helpers.js         # Helper functions
+├── themes/                # Theme definitions
+│   ├── pink.js
+│   ├── dark.js
+│   ├── mint.js
+│   └── ... (all themes)
+├── .env                   # Environment variables
+├── package.json           # Dependencies
+└── README.md              # Documentation
+```
+
+## 🔧 Tech Stack
+
+<div align="center">
+  
+| Technology | Purpose |
+|------------|---------|
+| ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white) | Runtime Environment |
+| ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) | Web Framework |
+| ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white) | HTTP Client |
+| ![SVG](https://img.shields.io/badge/SVG-FFB13B?style=for-the-badge&logo=svg&logoColor=white) | Graphics Generation |
+
+</div>
+
+## 📸 Screenshots
+
+<div align="center">
+  <img src="public/images/hacker.png" alt="my favorite Card" width="800">
+  <br>
+  <em>Main application interface with live preview</em>
+</div>
+
+## 🤝 Contributing
+
+Contributions are what make the open source community such an amazing place! Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Development Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Run in development mode
+node server.js
+
+# The server will restart on changes
+```
+
+## 🐛 Known Issues
+
+- GitHub API has rate limits (60 requests/hour without token)
+- Use `GITHUB_TOKEN` environment variable for higher limits (5000/hour)
+- First request may be slow due to GitHub API response time
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENCE` for more information.
+
+## 👨‍💻 Author
+
+**VIDAKHOSHPEY22**
+
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VIDAKHOSHPEY22)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:vviiddaa2@gmail.com)
+
+📧 **Email:** vviiddaa2@gmail.com
+
+## 🙏 Support
+
+If you find this project useful, please consider supporting it:
+
+- ⭐ Star the repository on GitHub
+- 🐛 Report bugs and issues
+- 💡 Suggest new features
+- 📝 Improve documentation
+- 🔄 Share with others
+
+Your support helps keep this project alive and growing!
+
+## 📊 GitHub Stats
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=VIDAKHOSHPEY22&show_icons=true&theme=radical" alt="GitHub Stats">
+</div>
+
+## ⭐ Show Your Support
+
+If this project helped you, please give it a ⭐️! It helps others discover it.
+
+### Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=VIDAKHOSHPEY22/github-languages-card&type=Date)](https://star-history.com/#VIDAKHOSHPEY22/github-languages-card&Date)
+
+---
+
+<div align="center">
+  
+  ### Made with ❤️ by [VIDAKHOSHPEY22](https://github.com/VIDAKHOSHPEY22)
+  
+  **Have questions? Feel free to reach out!**
+  
+  📧 **Email:** [vviiddaa2@gmail.com](mailto:vviiddaa2@gmail.com)
+  
+  **[⬆ Back to Top](#-github-languages-card)**
+  
+  ---
+  
+  <sub>Support open source! Star this repo and share it with others 🚀</sub>
+
+</div>
