@@ -13,7 +13,7 @@
   
   > Generate beautiful, real-time SVG cards showcasing your GitHub top programming languages
   
-  [Live Demo](https://github-languages-card.onrender.com) • [API Docs](#api-documentation) • [Report Bug](https://github.com/VIDAKHOSHPEY22/github-languages-card/issues) • [Request Feature](https://github.com/VIDAKHOSHPEY22/github-languages-card/issues)
+  [Live Demo](https://github-languages-card.vercel.app) • [API Docs](#api-documentation) • [Report Bug](https://github.com/VIDAKHOSHPEY22/github-languages-card/issues) • [Request Feature](https://github.com/VIDAKHOSHPEY22/github-languages-card/issues)
 
 </div>
 
@@ -32,7 +32,7 @@
 Copy and paste this into your GitHub README.md:
 
 ```markdown
-![GitHub Languages](https://your-domain.com/api/top-languages?username=YOUR_USERNAME&theme=pink)
+![GitHub Languages](https://github-languages-card.vercel.app/api/top-languages?username=VIDAKHOSHPEY22&theme=pink)
 ```
 
 ### Example Result
@@ -116,7 +116,7 @@ GET /api/top-languages
 ### Example Request
 
 ```bash
-curl "https://your-domain.com/api/top-languages?username=octocat&theme=ocean"
+curl "https://github-languages-card.vercel.app/api/top-languages?username=VIDAKHOSHPEY22&theme=hacker"
 ```
 
 ### Available Themes
@@ -132,7 +132,7 @@ hacker, white, golden
 The API returns an SVG image that can be embedded directly in markdown:
 
 ```markdown
-![GitHub Languages](https://your-domain.com/api/top-languages?username=VIDAKHOSHPEY22&theme=pink)
+![GitHub Languages](https://github-languages-card.vercel.app/api/top-languages?username=VIDAKHOSHPEY22&theme=pink)
 ```
 
 ## 💻 Self-Hosting
