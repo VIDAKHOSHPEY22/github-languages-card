@@ -1,20 +1,45 @@
 <div align="center">
   
-  <img src="public/images/dark-neon.png" alt="LangCard Banner" width="100%">
+  <!-- Banner -->
+  <img src="https://raw.githubusercontent.com/VIDAKHOSHPEY22/github-languages-card/main/public/images/dark-neon.png" alt="LangCard Banner" width="100%" style="border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
   
-  # 🎨 GitHub Languages Card
+  <br><br>
   
-  [![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](https://github.com/VIDAKHOSHPEY22/github-languages-card)
-  [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENCE)
-  [![Node.js](https://img.shields.io/badge/Node.js-18.x-green.svg)](https://nodejs.org/)
-  [![Express](https://img.shields.io/badge/Express-4.x-blue.svg)](https://expressjs.com/)
-  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-  [![GitHub stars](https://img.shields.io/github/stars/VIDAKHOSHPEY22/github-languages-card)](https://github.com/VIDAKHOSHPEY22/github-languages-card/stargazers)
+  <!-- Title -->
+  <h1>
+    <img src="https://raw.githubusercontent.com/VIDAKHOSHPEY22/github-languages-card/main/public/images/pink.png" width="40" style="border-radius: 10px; vertical-align: middle;">
+    <span style="background: linear-gradient(135deg, #ff6b9d, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+      GitHub Languages Card
+    </span>
+  </h1>
   
-  > Generate beautiful, real-time SVG cards showcasing your GitHub top programming languages
+  <!-- Badges -->
+  <p>
+    <img src="https://img.shields.io/badge/version-3.0.0-blue.svg">
+    <img src="https://img.shields.io/badge/license-MIT-green.svg">
+    <img src="https://img.shields.io/badge/Node.js-18.x-green.svg">
+    <img src="https://img.shields.io/badge/Express-4.x-blue.svg">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg">
+    <img src="https://img.shields.io/github/stars/VIDAKHOSHPEY22/github-languages-card">
+  </p>
   
-  [Live Demo](https://github-languages-card.vercel.app) • [API Docs](#api-documentation) • [Report Bug](https://github.com/VIDAKHOSHPEY22/github-languages-card/issues) • [Request Feature](https://github.com/VIDAKHOSHPEY22/github-languages-card/issues)
-
+  <!-- Developer Program Badge -->
+  <p>
+    <img src="https://img.shields.io/badge/👨‍💻_GitHub_Developer_Program-4A154B?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Developer Program">
+  </p>
+  
+  <!-- Quote -->
+  <p>
+    <i>✨ Generate beautiful, real-time SVG cards showcasing your GitHub top programming languages ✨</i>
+  </p>
+  
+  <!-- Buttons -->
+  <p>
+    <a href="https://github-languages-card.vercel.app"><img src="https://img.shields.io/badge/🚀_Live_Demo-000000?style=for-the-badge&logo=vercel"></a>
+    <a href="https://github-languages-card.vercel.app/api/docs"><img src="https://img.shields.io/badge/📖_API_Docs-4A154B?style=for-the-badge&logo=github"></a>
+    <a href="https://github.com/VIDAKHOSHPEY22/github-languages-card/issues"><img src="https://img.shields.io/badge/⚠️_Report_Bug-ff6b9d?style=for-the-badge&logo=github"></a>
+  </p>
+  
 </div>
 
 ---
