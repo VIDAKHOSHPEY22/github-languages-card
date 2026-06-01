@@ -20,10 +20,11 @@ jobs:
           curl -o public/languages-card.svg \
             "https://github-languages-card.vercel.app/api/top-languages?username=VIDAKHOSHPEY22&theme=pink"
 
-      - name: Commit & Push if changed
+      - name: Commit & Push if changed (with your identity)
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # به جای github-actions[bot]، نام و ایمیل خودت را بگذار
+          git config user.name "VIDAKHOSHPEY22"
+          git config user.email "vviiddaa2@gmail.com"
           
           git add public/languages-card.svg
           
@@ -32,5 +33,5 @@ jobs:
             exit 0
           fi
           
-          git commit -m "chore: auto-update languages card [skip ci]"
+          git commit -m "chore: auto-update languages card"
           git push
