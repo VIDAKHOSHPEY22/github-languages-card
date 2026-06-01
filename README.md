@@ -344,59 +344,54 @@ node server.js
 - Use `GITHUB_TOKEN` environment variable for higher limits (5000/hour)
 - First request may be slow due to GitHub API response time
 
-## 📄 License
+# 👨‍💻 Author
 
-Distributed under the MIT License. See `LICENCE` for more information.
+## VIDAKHOSHPEY22
 
-## 👨‍💻 Author
+<br>
 
-**VIDAKHOSHPEY22**
-
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VIDAKHOSHPEY22)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VIDAKHOSHPEY22)
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:vviiddaa2@gmail.com)
 
-📧 **Email:** vviiddaa2@gmail.com
-
-## 🙏 Support
-
-If you find this project useful, please consider supporting it:
-
-- ⭐ Star the repository on GitHub
-- 🐛 Report bugs and issues
-- 💡 Suggest new features
-- 📝 Improve documentation
-- 🔄 Share with others
-
-Your support helps keep this project alive and growing!
-
-## 📊 GitHub Stats
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=VIDAKHOSHPEY22&show_icons=true&theme=radical" alt="GitHub Stats">
-</div>
-
-## ⭐ Show Your Support
-
-If this project helped you, please give it a ⭐️! It helps others discover it.
-
-### Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=VIDAKHOSHPEY22/github-languages-card&type=Date)](https://star-history.com/#VIDAKHOSHPEY22/github-languages-card&Date)
+📧 **vviiddaa2@gmail.com**
 
 ---
 
-<div align="center">
-  
-  ### Made with ❤️ by [VIDAKHOSHPEY22](https://github.com/VIDAKHOSHPEY22)
-  
-  **Have questions? Feel free to reach out!**
-  
-  📧 **Email:** [vviiddaa2@gmail.com](mailto:vviiddaa2@gmail.com)
-  
-  **[⬆ Back to Top](#-github-languages-card)**
-  
-  ---
-  
-  <sub>Support open source! Star this repo and share it with others 🚀</sub>
+# ⭐ Support This Project
+
+<br>
+
+<a href="https://github.com/VIDAKHOSHPEY22/github-languages-card">
+  <img src="https://img.shields.io/badge/⭐_STAR_ON_GITHUB-ff6b9d?style=for-the-badge&logo=github&logoColor=white&labelColor=black" alt="Star on GitHub" width="300">
+</a>
+
+<br><br>
+
+## 📊 GitHub Stats
+
+<br>
+
+<p>
+  <img src="https://img.shields.io/github/stars/VIDAKHOSHPEY22/github-languages-card?style=for-the-badge&logo=github&color=ff6b9d&label=STARS" alt="Stars">
+  <img src="https://img.shields.io/github/forks/VIDAKHOSHPEY22/github-languages-card?style=for-the-badge&logo=github&color=8b5cf6&label=FORKS" alt="Forks">
+</p>
+
+<br>
+
+<img src="https://api.star-history.com/svg?repos=VIDAKHOSHPEY22/github-languages-card&type=Date" width="600">
+
+<br><br>
+
+---
+
+## 📜 License
+
+**MIT License • Open Source**
+
+<br>
+
+<a href="#-github-languages-card">
+  <img src="https://img.shields.io/badge/⬆_BACK_TO_TOP-4A154B?style=for-the-badge&logo=github&logoColor=white" alt="Back to Top">
+</a>
 
 </div>
