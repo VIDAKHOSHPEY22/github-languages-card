@@ -7,6 +7,7 @@
   [![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](https://github.com/VIDAKHOSHPEY22/github-languages-card)
   [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENCE)
   [![Node.js](https://img.shields.io/badge/Node.js-18.x-green.svg)](https://nodejs.org/)
+  [![Node.js CI](https://github.com/VIDAKHOSHPEY22/github-languages-card/actions/workflows/ci.yml/badge.svg)](https://github.com/VIDAKHOSHPEY22/github-languages-card/actions/workflows/ci.yml)
   [![Express](https://img.shields.io/badge/Express-4.x-blue.svg)](https://expressjs.com/)
   [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
   [![GitHub stars](https://img.shields.io/github/stars/VIDAKHOSHPEY22/github-languages-card)](https://github.com/VIDAKHOSHPEY22/github-languages-card/stargazers)
