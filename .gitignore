@@ -1,5 +1,7 @@
 # Dependencies
 node_modules/
+package-lock.json
+
 # Secrets - NEVER COMMIT
 .env
 .env.local
