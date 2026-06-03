@@ -354,6 +354,8 @@ node server.js
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:vviiddaa2@gmail.com)
 
 📧 **vviiddaa2@gmail.com**
+📧 **missyaldatw@gmail.com**
+
 
 ---
 
