@@ -1,10 +1,15 @@
 // utils/svgBuilder.js
 const { buildLanguageBars, buildStatsPills, buildUserSection, buildHeader, buildAvatar, buildDecorations } = require('../themes/base');
+const { validateTheme } = require('./themeValidator');
+const logger = require('./logger');
 
 function buildSVG(theme, data) {
     // Fixed dimensions - no calc() needed
-    var width = theme.width || 500;
-    var height = theme.height || 220;
+    // Validate and normalize theme
+    theme = validateTheme(theme || {});
+
+    var width = theme.width;
+    var height = theme.height;
     
     // Get gradients with fallback
     var gradients = theme.gradients || {
@@ -14,12 +19,17 @@ function buildSVG(theme, data) {
     };
     
     var username = data.username;
-    var user = data.user;
-    var languages = data.languages;
-    var stats = data.stats;
-    var avatarBase64 = data.avatarBase64;
+    var user = data.user || {};
+    var languages = data.languages || [];
+    var stats = data.stats || {};
+    var avatarBase64 = data.avatarBase64 || null;
     
-    var languagesHtml = buildLanguageBars(languages, theme);
+    try {
+        var languagesHtml = buildLanguageBars(languages, theme);
+    } catch (e) {
+        logger.error('buildLanguageBars failed', e.message);
+        var languagesHtml = '';
+    }
     var statsHtml = buildStatsPills(stats, theme);
     var userHtml = buildUserSection({ username: username, name: user.name, bio: user.bio }, theme);
     var avatarHtml = buildAvatar(avatarBase64, theme);
