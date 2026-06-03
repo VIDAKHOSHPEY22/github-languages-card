@@ -25,7 +25,7 @@
   
   <!-- Developer Program Badge -->
   <p>
-    <img src="https://img.shields.io/badge/👨‍💻_GitHub_Developer_Program-4A154B?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Developer Program">
+    <img src="https://img.shields.io/badge/_GitHub_Developer_Program-4A154B?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Developer Program">
   </p>
   
   <!-- Quote -->
