@@ -47,9 +47,26 @@
 ## ✨ Demo
 
 <div align="center">
+  
+  <a href="https://github-languages-card.vercel.app/">
+    <img src="https://img.shields.io/badge/🌐%20Try%20Live%20Demo%20Now-vercel?style=for-the-badge&logo=vercel&logoColor=white&color=000000">
+  </a>
+  
+  <br><br>
+  
   <img src="public/images/demo.gif" alt="Demo Animation" width="800">
   <br>
-  <em>Interactive demo showing real-time theme switching and card generation</em>
+  <em>Interactive demo — real-time theme switching & card generation</em>
+  
+  <br><br>
+  
+  🔗 **Live URL:** [github-languages-card.vercel.app](https://github-languages-card.vercel.app/)
+  
+  <br><br>
+  
+  > **Note for users from restricted regions (e.g., Iran):**  
+  > If Vercel is inaccessible, please use a VPN to access the live demo. 🙏
+  
 </div>
 
 ## 🚀 Quick Start
@@ -344,19 +361,27 @@ node server.js
 - Use `GITHUB_TOKEN` environment variable for higher limits (5000/hour)
 - First request may be slow due to GitHub API response time
 
-# 👨‍💻 Author
+## 👨‍💻 Author
 
-## VIDAKHOSHPEY22
-
-<br>
-
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VIDAKHOSHPEY22)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:vviiddaa2@gmail.com)
-
-📧 **vviiddaa2@gmail.com**
-📧 **yaldatwin@gmail.com**
-you can contact us😍
-
+<div align="center">
+  
+  | Vida Khoshpey | Yalda Khoshpey |
+  |:---:|:---:|
+  | <a href="https://github.com/VIDAKHOSHPEY22"><img src="https://img.shields.io/badge/GitHub-VIDAKHOSHPEY22-181717?style=for-the-badge&logo=github"></a> | <a href="https://github.com/YALDAKHOSHPEY"><img src="https://img.shields.io/badge/GitHub-YALDAKHOSHPEY-181717?style=for-the-badge&logo=github"></a> |
+  | 📧 vviiddaa2@gmail.com | 📧 yaldatwin@gmail.com |
+  
+  <br>
+  
+  ### 📬 Contact Us
+  
+  [![Email Vida](https://img.shields.io/badge/📧%20Email%20Vida-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:vviiddaa2@gmail.com)
+  [![Email Yalda](https://img.shields.io/badge/📧%20Email%20Yalda-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:yaldatwin@gmail.com)
+  
+  <br>
+  
+  <sub>Made with ❤️ by <strong>Vida & Yalda</strong> — Twin Coders 👯‍♀️</sub>
+  
+</div>
 
 ---
 
