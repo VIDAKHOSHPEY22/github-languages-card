@@ -118,8 +118,8 @@ app.get('/api/top-languages', async (req, res) => {
     
     try {
         const { user, repos, avatarBase64 } = await fetchGitHubUserData(username);
-        // Calculate top 5 distinct languages
-        const languages = calculateTopLanguages(repos, { excludeForks: true, limit: 5, distinct: true });
+        // Calculate top 5 languages using languages API per repo
+        const languages = await calculateTopLanguages(repos, { excludeForks: true, limit: 5 });
         
         if (languages.length === 0) {
             return res.status(404)
