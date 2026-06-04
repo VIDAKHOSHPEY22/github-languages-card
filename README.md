@@ -1,6 +1,6 @@
 <div align="center">
   
-  <!-- Banner -->
+  <!-- Banne r -->
   <img src="https://raw.githubusercontent.com/VIDAKHOSHPEY22/github-languages-card/main/public/images/dark-neon.png" alt="LangCard Banner" width="100%" style="border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
   
   <br><br>
