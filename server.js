@@ -5,6 +5,7 @@ const path = require('path');
 const { fetchGitHubUserData, calculateTopLanguages } = require('./utils/github');
 const { buildSVG } = require('./utils/svgBuilder');
 const { escapeXml } = require('./utils/helpers');
+const logger = require('./utils/logger');
 
 // Import all themes
 const pinkTheme = require('./themes/pink');
@@ -118,8 +119,8 @@ app.get('/api/top-languages', async (req, res) => {
     
     try {
         const { user, repos, avatarBase64 } = await fetchGitHubUserData(username);
-        // Calculate top 5 distinct languages
-        const languages = calculateTopLanguages(repos, { excludeForks: true, limit: 5, distinct: true });
+        // Calculate top 5 languages using languages API per repo
+        const languages = await calculateTopLanguages(repos, { excludeForks: true, limit: 5 });
         
         if (languages.length === 0) {
             return res.status(404)
@@ -151,7 +152,7 @@ app.get('/api/top-languages', async (req, res) => {
         res.send(svg);
         
     } catch (error) {
-        console.error('API Error:', error.message);
+        logger.error('API Error:', error.message);
         
         if (error.message === 'USER_NOT_FOUND') {
             res.status(404).setHeader('Content-Type', 'image/svg+xml').send(errorSVG('USER_NOT_FOUND', selectedTheme));
@@ -206,7 +207,7 @@ app.use((req, res) => {
 
 // Global error handler
 app.use((err, req, res, next) => {
-    console.error('Global error:', err);
+    logger.error('Global error:', err.message || err);
     res.status(500).json({
         error: 'Internal server error',
         message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'

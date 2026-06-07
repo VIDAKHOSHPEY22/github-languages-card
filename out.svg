@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="220" viewBox="0 0 500 220" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef2f6"/>
+      <stop offset="100%" style="stop-color:#fce7f3"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f47ba1"/>
+      <stop offset="100%" style="stop-color:#e85d8e"/>
+    </linearGradient>
+    <linearGradient id="accentSoftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#faaac4"/>
+      <stop offset="100%" style="stop-color:#f47ba1"/>
+    </linearGradient>
+    <filter id="softShadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+    <filter id="avatarGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="avatarClip">
+      <circle cx="42" cy="45" r="20"/>
+    </clipPath>
+  </defs>
+  
+  <!-- Background - fills entire SVG -->
+  <rect x="0" y="0" width="500" height="220" rx="20" fill="url(#bgGrad)" filter="url(#softShadow)"/>
+  
+  <!-- Border accent - using calculated fixed values -->
+  <rect x="1.5" y="1.5" width="497" height="217" rx="18.5" fill="none" stroke="url(#accentGrad)" stroke-width="0.8" opacity="0.25"/>
+  
+  <rect x="0" y="0" width="500" height="3" rx="1.5" fill="url(#accentGrad)">
+    <animate attributeName="opacity" from="0" to="1" dur="0.4s" fill="freeze"/>
+  </rect>
+
+  <g>
+    <circle cx="42" cy="45" r="24" fill="url(#accentGrad)" opacity="0.15" filter="url(#avatarGlow)">
+      <animate attributeName="r" values="24;27;24" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="42" cy="45" r="20" fill="#ffffff" stroke="url(#accentSoftGrad)" stroke-width="2"/>
+    <image href="data:image/png;base64,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" x="22" y="25" width="40" height="40" clip-path="url(#avatarClip)" preserveAspectRatio="xMidYMid slice"/>
+  </g>
+
+  <g>
+    <text x="82" y="38" fill="#4a2a3a" font-size="12" font-family="'SF Pro Display', 'Inter', system-ui" font-weight="700" letter-spacing="-0.2">
+      The Octocat
+    </text>
+    <text x="82" y="52" fill="#c485a3" font-size="9" font-family="'SF Mono', monospace">
+      @octocat
+    </text>
+  </g>
+
+  <g transform="translate(82, 80)">
+    <rect x="0" y="0" width="52" height="22" rx="11" fill="#fef2f6" stroke="#fdd4e4" stroke-width="0.8"/>
+    <text x="26" y="14" fill="#f47ba1" font-size="10" text-anchor="middle" font-family="'SF Mono', monospace" font-weight="700">6</text>
+    <text x="26" y="20" fill="#c485a3" font-size="6" text-anchor="middle" letter-spacing="0.5">REPOS</text>
+    <rect x="58" y="0" width="52" height="22" rx="11" fill="#fef2f6" stroke="#fdd4e4" stroke-width="0.8"/>
+    <text x="84" y="14" fill="#f47ba1" font-size="10" text-anchor="middle" font-family="'SF Mono', monospace" font-weight="700">21.5k</text>
+    <text x="84" y="20" fill="#c485a3" font-size="6" text-anchor="middle" letter-spacing="0.5">STARS</text>
+    <rect x="116" y="0" width="52" height="22" rx="11" fill="#fef2f6" stroke="#fdd4e4" stroke-width="0.8"/>
+    <text x="142" y="14" fill="#f47ba1" font-size="10" text-anchor="middle" font-family="'SF Mono', monospace" font-weight="700">165.0k</text>
+    <text x="142" y="20" fill="#c485a3" font-size="6" text-anchor="middle" letter-spacing="0.5">FORKS</text>
+    <rect x="174" y="0" width="52" height="22" rx="11" fill="#fef2f6" stroke="#fdd4e4" stroke-width="0.8"/>
+    <text x="200" y="14" fill="#f47ba1" font-size="10" text-anchor="middle" font-family="'SF Mono', monospace" font-weight="700">22.8k</text>
+    <text x="200" y="20" fill="#c485a3" font-size="6" text-anchor="middle" letter-spacing="0.5">FOLLOWERS</text>
+  </g>
+
+  
+  <!-- Divider line -->
+  <line x1="20" y1="108" x2="480" y2="108" stroke="#fdd4e4" stroke-width="0.8" stroke-dasharray="4 4" opacity="0.5">
+    <animate attributeName="opacity" from="0" to="0.5" dur="0.5s" fill="freeze"/>
+  </line>
+  
+  <!-- Languages header -->
+  <text x="20" y="108" fill="#f47ba1" font-size="8" font-family="'SF Mono', monospace" font-weight="700" letter-spacing="1.2" opacity="0.8">
+    TOP LANGUAGES
+  </text>
+  
+    <g>
+      <circle cx="20" cy="122" r="4" fill="#264de4"/>
+      <text x="34" y="126" fill="#4a2a3a" font-size="10" font-family="'SF Mono', 'JetBrains Mono', monospace" font-weight="500">CSS</text>
+      <text x="295" y="126" fill="#c485a3" font-size="9" font-family="'SF Mono', monospace" text-anchor="end">99%</text>
+      <rect x="20" y="130" width="260" height="6" rx="3" fill="#fbe6f0"/>
+      <rect x="20" y="130" width="0" height="6" rx="3" fill="#264de4">
+        <animate attributeName="width" from="0" to="258.45697329376856" dur="0.5s" begin="0s" fill="freeze"/>
+      </rect>
+    </g>
+    <g>
+      <circle cx="20" cy="142" r="4" fill="#e44d26"/>
+      <text x="34" y="146" fill="#4a2a3a" font-size="10" font-family="'SF Mono', 'JetBrains Mono', monospace" font-weight="500">HTML</text>
+      <text x="295" y="146" fill="#c485a3" font-size="9" font-family="'SF Mono', monospace" text-anchor="end">1%</text>
+      <rect x="20" y="150" width="260" height="6" rx="3" fill="#fbe6f0"/>
+      <rect x="20" y="150" width="0" height="6" rx="3" fill="#e44d26">
+        <animate attributeName="width" from="0" to="1.543026706231454" dur="0.5s" begin="0.1s" fill="freeze"/>
+      </rect>
+    </g>
+
+  
+  <!-- Footer -->
+  <text x="484" y="208" fill="#e0b8cf" font-size="7" font-family="'SF Mono', monospace" text-anchor="end" opacity="0.6">
+    pink · github languages card
+  </text>
+  
+  <g opacity="0.3">
+    <circle cx="15" cy="208" r="2" fill="#f47ba1"/>
+    <circle cx="27" cy="213" r="1.5" fill="#faaac4"/>
+    <circle cx="37" cy="206" r="1" fill="#e85d8e"/>
+  </g>
+
+</svg>
