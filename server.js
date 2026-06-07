@@ -87,6 +87,7 @@ function errorSVG(message, themeName) {
         '</svg>';
 }
 
+// EMPTY REPOSITORIES CARD - زمانی که کاربر هیچ ریپازیتوری ندارد
 function emptyReposSVG(username, themeName) {
     const theme = themes[themeName] || themes.pink;
     const width = 500;
@@ -109,7 +110,7 @@ function emptyReposSVG(username, themeName) {
         '  </defs>\n' +
         '  <rect width="' + width + '" height="' + height + '" rx="12" fill="url(#emptyBg)" filter="url(#emptyShadow)"/>\n' +
         '  <rect x="0" y="0" width="' + width + '" height="3" rx="1.5" fill="url(#emptyGradient)"/>\n' +
-        '  <text x="' + (width/2) + '" y="55" fill="' + theme.textPrimary + '" font-size="22" text-anchor="middle" font-family="system-ui" font-weight="bold">📦 Oops! No Repositories Found </text>\n' +
+        '  <text x="' + (width/2) + '" y="55" fill="' + theme.textPrimary + '" font-size="22" text-anchor="middle" font-family="system-ui" font-weight="bold">📦 Oops! No Repositories Found</text>\n' +
         '  <text x="' + (width/2) + '" y="85" fill="' + theme.textSecondary + '" font-size="13" text-anchor="middle" font-family="system-ui">@' + escapeXml(username) + ' has no public repositories yet</text>\n' +
         '  <text x="' + (width/2) + '" y="110" fill="' + theme.accent1 + '" font-size="12" text-anchor="middle" font-family="\'SF Mono\', monospace">Create your first repository → https://github.com/new</text>\n' +
         '  <text x="' + (width/2) + '" y="135" fill="' + theme.textMuted + '" font-size="10" text-anchor="middle" font-family="system-ui">After pushing code, your language card will appear here 🤗</text>\n' +
@@ -151,6 +152,7 @@ app.get('/api/top-languages', async (req, res) => {
         
         console.log(`[DEBUG] User: ${username}, Total repos: ${repos.length}, Public non-fork: ${repos.filter(r => !r.fork).length}`);
         
+        // CHECK FOR NO REPOSITORIES AT ALL
         if (!repos || repos.length === 0) {
             console.log(`[DEBUG] User ${username} has ZERO repositories - showing empty repos card`);
             return res.status(404)
@@ -161,6 +163,7 @@ app.get('/api/top-languages', async (req, res) => {
         
         const publicNonForkRepos = repos.filter(r => !r.fork);
         
+        // CHECK FOR ONLY FORKED REPOSITORIES
         if (publicNonForkRepos.length === 0) {
             console.log(`[DEBUG] User ${username} has only forked repositories - showing helpful message`);
             const helpMessage = `📦 @${username} has only forked repositories. Create your own repository to see your language stats!`;
@@ -173,6 +176,7 @@ app.get('/api/top-languages', async (req, res) => {
         
         console.log(`[DEBUG] Languages calculated: ${languages.length}`);
         
+        // CHECK FOR REPOSITORIES WITH NO DETECTABLE LANGUAGES
         if (languages.length === 0) {
             console.log(`[DEBUG] User ${username} has repos but no detectable languages`);
             const helpMessage = `💻 @${username} has ${publicNonForkRepos.length} repo(s) but no detectable programming languages. Push some code (Python, JavaScript, Java, etc.) to GitHub!`;
