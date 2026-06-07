@@ -600,6 +600,11 @@
             padding: 2rem;
             text-align: center;
             transition: all 0.3s;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .preview:hover {
@@ -625,6 +630,20 @@
 
         .preview-svg:hover {
             transform: scale(1.02);
+        }
+
+        .loading-placeholder {
+            text-align: center;
+            padding: 2rem;
+            color: #a1a1aa;
+            font-size: 0.875rem;
+        }
+
+        .error-placeholder {
+            text-align: center;
+            padding: 2rem;
+            color: #f87171;
+            font-size: 0.875rem;
         }
 
         /* Code Block */
@@ -828,12 +847,6 @@
             text-decoration: underline;
         }
 
-        /* Floating Animation for Elements */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .container { padding: 2rem 1rem; }
@@ -918,9 +931,9 @@
                 
                 <div class="preview">
                     <div class="preview-title">Live Preview</div>
-                    <object id="cardObject" type="image/svg+xml" data="/api/top-languages?username=VIDAKHOSHPEY22&theme=pink" class="preview-svg" style="width:100%; min-height:280px;">
-                        Loading...
-                    </object>
+                    <div id="previewContainer">
+                        <div class="loading-placeholder">Loading card...</div>
+                    </div>
                 </div>
             </div>
 
@@ -991,7 +1004,8 @@
                 <a href="/health" class="footer-link">💚 Status</a>
             </div>
             <div class="footer-credit">
-                Created with ❤️ by <a href="https://github.com/VIDAKHOSHPEY22" target="_blank">VIDAKHOSHPEY22</a> • MIT License            </div>
+                Created with ❤️ by <a href="https://github.com/VIDAKHOSHPEY22" target="_blank">VIDAKHOSHPEY22</a> • MIT License
+            </div>
         </div>
     </footer>
 
@@ -1102,17 +1116,37 @@
             generateCard();
         }
         
-        function generateCard() {
+        async function generateCard() {
             const username = document.getElementById("username").value.trim();
             if (!username) return;
             
+            const previewContainer = document.getElementById("previewContainer");
+            previewContainer.innerHTML = '<div class="loading-placeholder">Loading card...</div>';
+            
             const url = baseUrl + "/api/top-languages?username=" + encodeURIComponent(username) + "&theme=" + currentTheme;
             
-            const obj = document.getElementById("cardObject");
-            if (obj) obj.data = url;
-            
-            const markdown = "![GitHub Languages](" + url + ")";
-            document.getElementById("markdownCode").textContent = markdown;
+            try {
+                const response = await fetch(url);
+                const svgText = await response.text();
+                
+                previewContainer.innerHTML = svgText;
+                
+                const svgElement = previewContainer.querySelector('svg');
+                if (svgElement) {
+                    svgElement.setAttribute('class', 'preview-svg');
+                    svgElement.style.maxWidth = '100%';
+                    svgElement.style.borderRadius = '16px';
+                    svgElement.style.margin = '0 auto';
+                    svgElement.style.display = 'block';
+                }
+                
+                const markdown = "![GitHub Languages](" + url + ")";
+                document.getElementById("markdownCode").textContent = markdown;
+                
+            } catch (error) {
+                console.error('Error loading card:', error);
+                previewContainer.innerHTML = '<div class="error-placeholder">❌ Failed to load card. Please check username and try again.</div>';
+            }
         }
         
         document.getElementById("themeTrigger").addEventListener("click", function() {

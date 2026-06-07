@@ -7,7 +7,6 @@ const { buildSVG } = require('./utils/svgBuilder');
 const { escapeXml } = require('./utils/helpers');
 const logger = require('./utils/logger');
 
-// Import all themes
 const pinkTheme = require('./themes/pink');
 const darkTheme = require('./themes/dark');
 const mintTheme = require('./themes/mint');
@@ -30,11 +29,9 @@ const goldenTheme = require('./themes/golden');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from 'public' directory
 app.use(express.static('public'));
 app.set('trust proxy', true);
 
-// Theme registry
 const themes = {
     pink: pinkTheme, dark: darkTheme, mint: mintTheme, purple: purpleTheme,
     ocean: oceanTheme, sunset: sunsetTheme, graphite: graphiteTheme,
@@ -44,11 +41,10 @@ const themes = {
     white: whiteTheme, golden: goldenTheme
 };
 
-// Error SVG generator
 function errorSVG(message, themeName) {
     const theme = themes[themeName] || themes.pink;
-    const width = 420;
-    const height = 120;
+    const width = 480;
+    const height = 160;
     
     const errorMessages = {
         'RATE_LIMIT': 'GitHub API rate limit reached. Please try again in a few minutes.',
@@ -58,18 +54,22 @@ function errorSVG(message, themeName) {
         'NETWORK_ERROR': 'Network error. Please check your connection and try again.'
     };
     
-    const displayMessage = errorMessages[message] || message;
+    let displayMessage = errorMessages[message] || message;
+    
+    if (displayMessage.length > 70) {
+        displayMessage = displayMessage.substring(0, 67) + '...';
+    }
     
     return '<?xml version="1.0" encoding="UTF-8"?>\n' +
         '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '">\n' +
         '  <defs>\n' +
         '    <linearGradient id="errorGradient" x1="0%" y1="0%" x2="100%" y2="0%">\n' +
-        '      <stop offset="0%" style="stop-color:' + theme.accent1 + '"/>\n' +
-        '      <stop offset="100%" style="stop-color:' + theme.accent2 + '"/>\n' +
+        '      <stop offset="0%" stop-color="' + theme.accent1 + '"/>\n' +
+        '      <stop offset="100%" stop-color="' + theme.accent2 + '"/>\n' +
         '    </linearGradient>\n' +
         '    <linearGradient id="errorBg" x1="0%" y1="0%" x2="0%" y2="100%">\n' +
-        '      <stop offset="0%" style="stop-color:' + theme.bgCard + '"/>\n' +
-        '      <stop offset="100%" style="stop-color:' + theme.bgSoft + '"/>\n' +
+        '      <stop offset="0%" stop-color="' + theme.bgCard + '"/>\n' +
+        '      <stop offset="100%" stop-color="' + theme.bgSoft + '"/>\n' +
         '    </linearGradient>\n' +
         '    <filter id="errorShadow" x="-5%" y="-5%" width="115%" height="115%">\n' +
         '      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.06"/>\n' +
@@ -78,15 +78,45 @@ function errorSVG(message, themeName) {
         '  <rect width="' + width + '" height="' + height + '" rx="12" fill="url(#errorBg)" filter="url(#errorShadow)"/>\n' +
         '  <rect x="0" y="0" width="' + width + '" height="3" rx="1.5" fill="url(#errorGradient)"/>\n' +
         '  <rect x="1" y="1" width="' + (width-2) + '" height="' + (height-2) + '" rx="11" fill="none" stroke="' + theme.accent1 + '" stroke-width="0.5" opacity="0.2"/>\n' +
-        '  <circle cx="40" cy="60" r="20" fill="' + theme.accent1 + '" opacity="0.1"/>\n' +
-        '  <text x="40" y="66" fill="' + theme.accent1 + '" font-size="20" text-anchor="middle" font-family="\'SF Mono\', monospace" font-weight="700">!</text>\n' +
-        '  <text x="80" y="54" fill="' + theme.textPrimary + '" font-size="12" font-family="\'SF Pro Display\', system-ui" font-weight="600">Error</text>\n' +
-        '  <text x="80" y="72" fill="' + theme.textSecondary + '" font-size="9" font-family="\'SF Mono\', monospace">' + escapeXml(displayMessage) + '</text>\n' +
+        '  <circle cx="40" cy="75" r="20" fill="' + theme.accent1 + '" opacity="0.1"/>\n' +
+        '  <text x="40" y="81" fill="' + theme.accent1 + '" font-size="20" text-anchor="middle" font-family="\'SF Mono\', monospace" font-weight="700">!</text>\n' +
+        '  <text x="80" y="64" fill="' + theme.textPrimary + '" font-size="13" font-family="\'SF Pro Display\', system-ui" font-weight="600">Error</text>\n' +
+        '  <text x="80" y="84" fill="' + theme.textSecondary + '" font-size="10" font-family="\'SF Mono\', monospace">' + escapeXml(displayMessage) + '</text>\n' +
+        '  <text x="80" y="104" fill="' + theme.textMuted + '" font-size="9" font-family="\'SF Mono\', monospace">Try again or check GitHub profile</text>\n' +
         '  <text x="' + (width-20) + '" y="' + (height-12) + '" fill="' + theme.textMuted + '" font-size="8" text-anchor="end" font-family="\'SF Mono\', monospace">GitHub Languages Card</text>\n' +
         '</svg>';
 }
 
-// Health check endpoint
+function emptyReposSVG(username, themeName) {
+    const theme = themes[themeName] || themes.pink;
+    const width = 500;
+    const height = 180;
+    
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '">\n' +
+        '  <defs>\n' +
+        '    <linearGradient id="emptyGradient" x1="0%" y1="0%" x2="100%" y2="0%">\n' +
+        '      <stop offset="0%" stop-color="' + theme.accent1 + '"/>\n' +
+        '      <stop offset="100%" stop-color="' + theme.accent2 + '"/>\n' +
+        '    </linearGradient>\n' +
+        '    <linearGradient id="emptyBg" x1="0%" y1="0%" x2="0%" y2="100%">\n' +
+        '      <stop offset="0%" stop-color="' + theme.bgCard + '"/>\n' +
+        '      <stop offset="100%" stop-color="' + theme.bgSoft + '"/>\n' +
+        '    </linearGradient>\n' +
+        '    <filter id="emptyShadow" x="-5%" y="-5%" width="115%" height="115%">\n' +
+        '      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.06"/>\n' +
+        '    </filter>\n' +
+        '  </defs>\n' +
+        '  <rect width="' + width + '" height="' + height + '" rx="12" fill="url(#emptyBg)" filter="url(#emptyShadow)"/>\n' +
+        '  <rect x="0" y="0" width="' + width + '" height="3" rx="1.5" fill="url(#emptyGradient)"/>\n' +
+        '  <text x="' + (width/2) + '" y="55" fill="' + theme.textPrimary + '" font-size="22" text-anchor="middle" font-family="system-ui" font-weight="bold">📦 Oops! No Repositories Found </text>\n' +
+        '  <text x="' + (width/2) + '" y="85" fill="' + theme.textSecondary + '" font-size="13" text-anchor="middle" font-family="system-ui">@' + escapeXml(username) + ' has no public repositories yet</text>\n' +
+        '  <text x="' + (width/2) + '" y="110" fill="' + theme.accent1 + '" font-size="12" text-anchor="middle" font-family="\'SF Mono\', monospace">Create your first repository → https://github.com/new</text>\n' +
+        '  <text x="' + (width/2) + '" y="135" fill="' + theme.textMuted + '" font-size="10" text-anchor="middle" font-family="system-ui">After pushing code, your language card will appear here 🤗</text>\n' +
+        '  <text x="' + (width-20) + '" y="' + (height-12) + '" fill="' + theme.textMuted + '" font-size="8" text-anchor="end" font-family="\'SF Mono\', monospace">GitHub Languages Card</text>\n' +
+        '</svg>';
+}
+
 app.get('/health', (req, res) => {
     res.status(200).json({
         status: 'healthy',
@@ -96,7 +126,6 @@ app.get('/health', (req, res) => {
     });
 });
 
-// Main API endpoint
 app.get('/api/top-languages', async (req, res) => {
     let username = req.query.username;
     let theme = req.query.theme || 'pink';
@@ -119,18 +148,42 @@ app.get('/api/top-languages', async (req, res) => {
     
     try {
         const { user, repos, avatarBase64 } = await fetchGitHubUserData(username);
-        // Calculate top 5 languages using languages API per repo
-        const languages = await calculateTopLanguages(repos, { excludeForks: true, limit: 5 });
         
-        if (languages.length === 0) {
+        console.log(`[DEBUG] User: ${username}, Total repos: ${repos.length}, Public non-fork: ${repos.filter(r => !r.fork).length}`);
+        
+        if (!repos || repos.length === 0) {
+            console.log(`[DEBUG] User ${username} has ZERO repositories - showing empty repos card`);
             return res.status(404)
                 .setHeader('Content-Type', 'image/svg+xml')
-                .send(errorSVG('no language data for ' + username, selectedTheme));
+                .setHeader('Cache-Control', 'no-cache')
+                .send(emptyReposSVG(username, selectedTheme));
+        }
+        
+        const publicNonForkRepos = repos.filter(r => !r.fork);
+        
+        if (publicNonForkRepos.length === 0) {
+            console.log(`[DEBUG] User ${username} has only forked repositories - showing helpful message`);
+            const helpMessage = `📦 @${username} has only forked repositories. Create your own repository to see your language stats!`;
+            return res.status(404)
+                .setHeader('Content-Type', 'image/svg+xml')
+                .send(errorSVG(helpMessage, selectedTheme));
+        }
+        
+        const languages = await calculateTopLanguages(repos, { excludeForks: true, limit: 5 });
+        
+        console.log(`[DEBUG] Languages calculated: ${languages.length}`);
+        
+        if (languages.length === 0) {
+            console.log(`[DEBUG] User ${username} has repos but no detectable languages`);
+            const helpMessage = `💻 @${username} has ${publicNonForkRepos.length} repo(s) but no detectable programming languages. Push some code (Python, JavaScript, Java, etc.) to GitHub!`;
+            return res.status(404)
+                .setHeader('Content-Type', 'image/svg+xml')
+                .send(errorSVG(helpMessage, selectedTheme));
         }
         
         const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
         const totalForks = repos.reduce((sum, repo) => sum + (repo.forks_count || 0), 0);
-        const publicRepos = repos.filter(function(r) { return !r.fork; }).length;
+        const publicRepos = publicNonForkRepos.length;
         const followers = user.followers || 0;
 
         const svg = buildSVG(themeConfig, {
@@ -146,29 +199,40 @@ app.get('/api/top-languages', async (req, res) => {
             }
         });
         
-        res.setHeader('Content-Type', 'image/svg+xml');
-        res.setHeader('Cache-Control', 'public, max-age=3600');
-        res.setHeader('X-Theme', selectedTheme);
-        res.send(svg);
+        return res.status(200)
+            .setHeader('Content-Type', 'image/svg+xml')
+            .setHeader('Cache-Control', 'public, max-age=3600')
+            .setHeader('X-Theme', selectedTheme)
+            .send(svg);
         
     } catch (error) {
         logger.error('API Error:', error.message);
+        console.log(`[DEBUG] Error caught: ${error.message}`);
         
         if (error.message === 'USER_NOT_FOUND') {
-            res.status(404).setHeader('Content-Type', 'image/svg+xml').send(errorSVG('USER_NOT_FOUND', selectedTheme));
+            return res.status(404)
+                .setHeader('Content-Type', 'image/svg+xml')
+                .send(errorSVG('USER_NOT_FOUND', selectedTheme));
         } else if (error.message === 'RATE_LIMIT') {
-            res.status(429).setHeader('Content-Type', 'image/svg+xml').send(errorSVG('RATE_LIMIT', selectedTheme));
+            return res.status(429)
+                .setHeader('Content-Type', 'image/svg+xml')
+                .send(errorSVG('RATE_LIMIT', selectedTheme));
         } else if (error.message === 'TIMEOUT') {
-            res.status(504).setHeader('Content-Type', 'image/svg+xml').send(errorSVG('TIMEOUT', selectedTheme));
+            return res.status(504)
+                .setHeader('Content-Type', 'image/svg+xml')
+                .send(errorSVG('TIMEOUT', selectedTheme));
         } else if (error.message === 'NETWORK_ERROR') {
-            res.status(500).setHeader('Content-Type', 'image/svg+xml').send(errorSVG('NETWORK_ERROR', selectedTheme));
+            return res.status(500)
+                .setHeader('Content-Type', 'image/svg+xml')
+                .send(errorSVG('NETWORK_ERROR', selectedTheme));
         } else {
-            res.status(500).setHeader('Content-Type', 'image/svg+xml').send(errorSVG('API_ERROR', selectedTheme));
+            return res.status(500)
+                .setHeader('Content-Type', 'image/svg+xml')
+                .send(errorSVG('API_ERROR', selectedTheme));
         }
     }
 });
 
-// API documentation endpoint
 app.get('/api/docs', (req, res) => {
     res.json({
         name: 'GitHub Languages Card API',
@@ -191,12 +255,10 @@ app.get('/api/docs', (req, res) => {
     });
 });
 
-// Main landing page - serve HTML file
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// 404 handler
 app.use((req, res) => {
     res.status(404).json({
         error: 'Endpoint not found',
@@ -205,7 +267,6 @@ app.use((req, res) => {
     });
 });
 
-// Global error handler
 app.use((err, req, res, next) => {
     logger.error('Global error:', err.message || err);
     res.status(500).json({
@@ -214,7 +275,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Start server
 const server = app.listen(PORT, '0.0.0.0', function() {
     const baseUrl = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
     
