@@ -1,4 +1,23 @@
 <div align="center">
+
+
+[<img src="https://raw.githubusercontent.com/yumiaura/myCat/refs/heads/main/docs/cat.gif" width="164" alt="cat.gif"/>](https://github.com/yumiaura)
+
+  🔗 **Live URL:** [github-languages-card.vercel.app](https://github-languages-card.vercel.app/)
+  
+
+  <div align="center">
+  
+  <a href="https://github-languages-card.vercel.app/">
+    <img src="https://img.shields.io/badge/🌐%20Try%20Live%20Demo%20Now-vercel?style=for-the-badge&logo=vercel&logoColor=white&color=000000">
+  </a>
+  
+  <br><br>
+  
+  > **Note for users from restricted regions (e.g., Iran):**  
+  > If Vercel is inaccessible, please use a VPN to access the live demo. 🙏
+  
+  
   
   <!-- Banner for 6/18/2026 -->
   <img src="https://raw.githubusercontent.com/VIDAKHOSHPEY22/github-languages-card/main/public/images/dark-neon.png" alt="LangCard Banner" width="100%" style="border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
@@ -59,13 +78,7 @@
   <em>Interactive demo — real-time theme switching & card generation</em>
   
   <br><br>
-  
-  🔗 **Live URL:** [github-languages-card.vercel.app](https://github-languages-card.vercel.app/)
-  
-  <br><br>
-  
-  > **Note for users from restricted regions (e.g., Iran):**  
-  > If Vercel is inaccessible, please use a VPN to access the live demo. 🙏
+
   
 </div>
 
