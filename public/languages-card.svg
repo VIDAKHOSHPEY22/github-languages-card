@@ -61,10 +61,10 @@
     <text x="26" y="14" fill="#f47ba1" font-size="10" text-anchor="middle" font-family="'SF Mono', monospace" font-weight="700">44</text>
     <text x="26" y="20" fill="#c485a3" font-size="6" text-anchor="middle" letter-spacing="0.5">REPOS</text>
     <rect x="58" y="0" width="52" height="22" rx="11" fill="#fef2f6" stroke="#fdd4e4" stroke-width="0.8"/>
-    <text x="84" y="14" fill="#f47ba1" font-size="10" text-anchor="middle" font-family="'SF Mono', monospace" font-weight="700">649</text>
+    <text x="84" y="14" fill="#f47ba1" font-size="10" text-anchor="middle" font-family="'SF Mono', monospace" font-weight="700">650</text>
     <text x="84" y="20" fill="#c485a3" font-size="6" text-anchor="middle" letter-spacing="0.5">STARS</text>
     <rect x="116" y="0" width="52" height="22" rx="11" fill="#fef2f6" stroke="#fdd4e4" stroke-width="0.8"/>
-    <text x="142" y="14" fill="#f47ba1" font-size="10" text-anchor="middle" font-family="'SF Mono', monospace" font-weight="700">52</text>
+    <text x="142" y="14" fill="#f47ba1" font-size="10" text-anchor="middle" font-family="'SF Mono', monospace" font-weight="700">53</text>
     <text x="142" y="20" fill="#c485a3" font-size="6" text-anchor="middle" letter-spacing="0.5">FORKS</text>
     <rect x="174" y="0" width="52" height="22" rx="11" fill="#fef2f6" stroke="#fdd4e4" stroke-width="0.8"/>
     <text x="200" y="14" fill="#f47ba1" font-size="10" text-anchor="middle" font-family="'SF Mono', monospace" font-weight="700">1.2k</text>
@@ -88,7 +88,7 @@
       <text x="295" y="126" fill="#c485a3" font-size="9" font-family="'SF Mono', monospace" text-anchor="end">65%</text>
       <rect x="20" y="130" width="260" height="6" rx="3" fill="#fbe6f0"/>
       <rect x="20" y="130" width="0" height="6" rx="3" fill="#3776ab">
-        <animate attributeName="width" from="0" to="168.45609066472775" dur="0.6s" begin="0s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="168.53790588985555" dur="0.6s" begin="0s" fill="freeze"/>
       </rect>
     </g>
     <g>
@@ -97,7 +97,7 @@
       <text x="295" y="146" fill="#c485a3" font-size="9" font-family="'SF Mono', monospace" text-anchor="end">20%</text>
       <rect x="20" y="150" width="260" height="6" rx="3" fill="#fbe6f0"/>
       <rect x="20" y="150" width="0" height="6" rx="3" fill="#e44d26">
-        <animate attributeName="width" from="0" to="51.839398134674944" dur="0.6s" begin="0.1s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="51.7930678866041" dur="0.6s" begin="0.1s" fill="freeze"/>
       </rect>
     </g>
     <g>
@@ -106,7 +106,7 @@
       <text x="295" y="166" fill="#c485a3" font-size="9" font-family="'SF Mono', monospace" text-anchor="end">6%</text>
       <rect x="20" y="170" width="260" height="6" rx="3" fill="#fbe6f0"/>
       <rect x="20" y="170" width="0" height="6" rx="3" fill="#8b949e">
-        <animate attributeName="width" from="0" to="16.044009906498204" dur="0.6s" begin="0.2s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="16.029670948374342" dur="0.6s" begin="0.2s" fill="freeze"/>
       </rect>
     </g>
     <g>
@@ -115,7 +115,7 @@
       <text x="295" y="186" fill="#c485a3" font-size="9" font-family="'SF Mono', monospace" text-anchor="end">4%</text>
       <rect x="20" y="190" width="260" height="6" rx="3" fill="#fbe6f0"/>
       <rect x="20" y="190" width="0" height="6" rx="3" fill="#f7df1e">
-        <animate attributeName="width" from="0" to="11.213020704035774" dur="0.6s" begin="0.30000000000000004s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="11.202999329376059" dur="0.6s" begin="0.30000000000000004s" fill="freeze"/>
       </rect>
     </g>
     <g>
@@ -124,7 +124,7 @@
       <text x="295" y="206" fill="#c485a3" font-size="9" font-family="'SF Mono', monospace" text-anchor="end">4%</text>
       <rect x="20" y="210" width="260" height="6" rx="3" fill="#fbe6f0"/>
       <rect x="20" y="210" width="0" height="6" rx="3" fill="#264de4">
-        <animate attributeName="width" from="0" to="9.80071865811641" dur="0.6s" begin="0.4s" fill="freeze"/>
+        <animate attributeName="width" from="0" to="9.79195949533594" dur="0.6s" begin="0.4s" fill="freeze"/>
       </rect>
     </g>
 
